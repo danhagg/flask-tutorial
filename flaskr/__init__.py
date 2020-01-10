@@ -1,6 +1,9 @@
 import os
 
 from flask import Flask
+from flask_debugtoolbar import DebugToolbarExtension
+
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -32,6 +35,9 @@ def create_app(test_config=None):
 
     from . import db
     db.init_app(app)
+
+    toolbar = DebugToolbarExtension()
+    toolbar.init_app(app)
 
     from . import auth
     app.register_blueprint(auth.bp)
