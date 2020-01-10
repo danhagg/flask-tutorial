@@ -1,11 +1,15 @@
 import pytest
 from flaskr.db import get_db
+from flask import url_for
 
 
 def test_index(client, auth):
     response = client.get('/')
     assert b"Log In" in response.data
     assert b"Register" in response.data
+
+    pytest_flask_extension_response = client.get(url_for('hello'))
+    assert pytest_flask_extension_response.status_code == 200
 
     auth.login()
     response = client.get('/')
